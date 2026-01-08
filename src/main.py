@@ -1,8 +1,16 @@
-from textnode import TextNode, TextType
+import os
+import shutil
+
+from makesite import copy_directory_contents, generate_pages_recursive
 
 def main():
-    node = TextNode("This is some anchor text", TextType.LINK, "http://www.boot.dev")
-    print(node)
+    if os.path.exists("public"):
+        shutil.rmtree("public")
+
+    copy_directory_contents("static", "public")
+
+    generate_pages_recursive("content", "template.html", "public")
+
 
 main()
 
